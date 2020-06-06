@@ -2,10 +2,12 @@ FROM openjdk:8-jre-alpine
 
 COPY entrypoint.sh /entrypoint.sh
 
+ENV ZOOKEEPER_VERSION="3.6.1"
+
 RUN apk --update add --no-cache python curl tar bash && \
-    curl -fL https://archive.apache.org/dist/zookeeper/zookeeper-3.6.0/apache-zookeeper-3.6.0-bin.tar.gz | tar xzf - -C /opt && \
-    mv /opt/apache-zookeeper-3.6.0-bin /opt/zookeeper && \
-    rm -f apache-zookeeper-3.6.0-bin.tar.gz && \
+    curl -fL https://archive.apache.org/dist/zookeeper/zookeeper-$ZOOKEEPER_VERSION/apache-zookeeper-$ZOOKEEPER_VERSION-bin.tar.gz | tar xzf - -C /opt && \
+    mv /opt/apache-zookeeper-$ZOOKEEPER_VERSION-bin /opt/zookeeper && \
+    rm -f apache-zookeeper-$ZOOKEEPER_VERSION-bin.tar.gz && \
     chmod +x /entrypoint.sh
 
 VOLUME /data/zookeeper
